@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tapan.entity.Account;
-import com.tapan.service.AccountService;
+import com.tapan.service.AccountServiceInterface;
 @RestController
 @RequestMapping("/bank")
 public class AccountController {
 	@Autowired
-	private AccountService service;
+	private AccountServiceInterface service;
 	@GetMapping("/allAccount")
 	public List<Account> getAllAccounts()
 	{
-		return service.getAllAccounts();
+		return service.getAllAccount();
 	}
 	@GetMapping("/{id}")
 	public Account getAccountById(@PathVariable Integer id)
 	{
-		return service.getAccountByid(id);
+		return service.getAccountById(id);
 	}
 	@PostMapping("/create")
 	public Account createAccount(@RequestBody Account account)

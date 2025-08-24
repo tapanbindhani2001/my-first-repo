@@ -8,38 +8,44 @@ import org.springframework.stereotype.Service;
 import com.tapan.entity.Account;
 import com.tapan.repository.BankRepository;
 @Service
-public class AccountService {
+public class AccountService  implements AccountServiceInterface{
 	@Autowired
-	private BankRepository repository;
-	public List<Account> getAllAccounts()
-	{
-		return repository.findAll();
+	private BankRepository repo;
+
+	@Override
+	public List<Account> getAllAccount() {
+		// TODO Auto-generated method stub
+		return repo.findAll();
 	}
-	public Account getAccountByid(Integer id)
-	{
-		return repository.findById(id).orElse(null);
+
+	@Override
+	public Account getAccountById(Integer id) {
+		// TODO Auto-generated method stub
+		return repo.findById(id).orElseThrow(null);
 	}
-	public Account createAccount(Account account)
-	{
-		return repository.save(account);
+
+	@Override
+	public Account createAccount(Account account) {
+		// TODO Auto-generated method stub
+		return repo.save(account);
 	}
-	public void deleteAccount(Integer id)
-	{
-		repository.deleteById(id);
+
+	@Override
+	public void deleteAccount(Integer id) {
+		// TODO Auto-generated method stub
+		repo.deleteById(id);
+		
 	}
-	public Account updateAccount(Integer id,Account account)
-	{
-		Account acc= repository.findById(id).orElse(null);
-		if(acc!=null)
-		{
-			acc.setAccount_holder_name(account.getAccount_holder_name());
-			acc.setAccount_type(account.getAccount_type());
-			acc.setBalance(account.getBalance());
-			repository.save(acc);
-			return acc;
-		}
-		return null;
+
+	@Override
+	public Account updateAccount(Integer id, Account account) {
+		// TODO Auto-generated method stub
+		 Account acc = repo.findById(id).orElseThrow(null);
+		 acc.setAccount_holder_name(account.getAccount_holder_name());
+		 acc.setAccount_type(account.getAccount_type());
+		 acc.setBalance(account.getBalance());
+		 return repo.save(acc);
 	}
-	
+		
 
 }
